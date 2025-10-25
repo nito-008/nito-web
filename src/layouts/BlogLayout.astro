@@ -1,7 +1,7 @@
 ---
 import type { InferEntrySchema } from "astro:content";
 import Section from "../components/Section.astro";
-import { format } from "../utils";
+import { toDateString } from "../utils";
 import { css } from "../../styled-system/css";
 import { markdown } from "../recipes/markdown";
 import PageLayout from "./PageLayout.astro";
@@ -40,7 +40,7 @@ const title = css({
         color: "text.gray",
       })}
     >
-      {format(frontmatter.pubDate)}
+      {toDateString(frontmatter.pubDate)}
     </time>
     <h2 class={title}>
       {frontmatter.title}

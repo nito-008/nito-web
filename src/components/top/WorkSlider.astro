@@ -2,7 +2,7 @@
 import { css } from "../../../styled-system/css";
 import { vstack } from "../../../styled-system/patterns";
 import WorkItem from ".././WorkItem.astro";
-import { getWorks } from "../../utils";
+import { getSlugFromId, getWorks } from "../../utils/collections";
 
 const swiper_container = vstack({
   gap: "16",
@@ -52,7 +52,11 @@ const works = (await getWorks()).slice(0, 6);
             <WorkItem
               image={item.data.icon}
               name={item.data.name}
-              href={item.data.url ? item.data.url : `/works/${item.slug}`}
+              href={
+                item.data.url
+                  ? item.data.url
+                  : `/works/${getSlugFromId(item.id)}`
+              }
             >
               {item.data.description}
             </WorkItem>

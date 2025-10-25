@@ -3,7 +3,7 @@ import Section from "../components/Section.astro";
 import PageLayout from "../layouts/PageLayout.astro";
 import BlogItem from "../components/BlogItem.astro";
 import { vstack } from "../../styled-system/patterns";
-import { getPosts } from "../utils";
+import { getPosts, getSlugFromId } from "../utils/collections";
 
 const blog = await getPosts();
 ---
@@ -22,7 +22,7 @@ const blog = await getPosts();
         blog.map((item) => (
           <li class="blog_item">
             {
-              <a href={`/blog/${item.slug}`}>
+              <a href={`/blog/${getSlugFromId(item.id)}`}>
                 <BlogItem date={item.data.pubDate}>{item.data.title}</BlogItem>
               </a>
             }

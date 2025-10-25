@@ -2,7 +2,7 @@
 import { container, vstack } from "../../../styled-system/patterns";
 import BlogItem from "../BlogItem.astro";
 import TopSection from "./TopSection.astro";
-import { getPosts } from "../../utils";
+import { getPosts, getSlugFromId } from "../../utils/collections";
 
 const blog = (await getPosts()).slice(0, 5);
 
@@ -18,7 +18,7 @@ const section = container({
     {
       blog.map((item) => (
         <li class="blog_item">
-          <a href={`/blog/${item.slug}`}>
+          <a href={`/blog/${getSlugFromId(item.id)}`}>
             <BlogItem date={item.data.pubDate}>{item.data.title}</BlogItem>
           </a>
         </li>
