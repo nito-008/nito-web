@@ -1,15 +1,64 @@
 {
   "$schema": "https://frontmatter.codes/frontmatter.schema.json",
+  "frontMatter.framework.id": "astro",
+  "frontMatter.preview.host": "http://localhost:4321",
+  "frontMatter.content.publicFolder": "public",
+  "frontMatter.content.pageFolders": [
+    {
+      "title": "blog",
+      "path": "[[workspace]]/src/content/blog",
+      "previewPath": "blog",
+      "contentTypes": ["blog"]
+    },
+    {
+      "title": "work",
+      "path": "[[workspace]]/src/content/work",
+      "previewPath": "work",
+      "contentTypes": ["work"]
+    }
+  ],
+  "frontMatter.content.supportedFileTypes": ["md", "markdown", "mdx"],
   "frontMatter.taxonomy.contentTypes": [
     {
-      "name": "default",
+      "name": "blog",
       "pageBundle": false,
-      "previewPath": null,
       "fields": [
         {
           "title": "Title",
           "name": "title",
-          "type": "string"
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Publishing Date",
+          "name": "pubDate",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true
+        },
+        {
+          "title": "Open Graph Image",
+          "name": "image",
+          "type": "image",
+          "isPreviewImage": true
+        }
+      ]
+    },
+    {
+      "name": "work",
+      "pageBundle": false,
+      "fields": [
+        {
+          "title": "Name",
+          "name": "name",
+          "type": "string",
+          "single": true
+        },
+        {
+          "title": "Icon",
+          "name": "icon",
+          "type": "image",
+          "isPreviewImage": true
         },
         {
           "title": "Description",
@@ -17,35 +66,19 @@
           "type": "string"
         },
         {
-          "title": "Publishing date",
-          "name": "date",
+          "title": "Publishing Date",
+          "name": "pubDate",
           "type": "datetime",
           "default": "{{now}}",
           "isPublishDate": true
         },
         {
-          "title": "Content preview",
-          "name": "preview",
-          "type": "image"
-        },
-        {
-          "title": "Is in draft",
-          "name": "draft",
-          "type": "draft"
-        },
-        {
-          "title": "Tags",
-          "name": "tags",
-          "type": "tags"
-        },
-        {
-          "title": "Categories",
-          "name": "categories",
-          "type": "categories"
+          "title": "URL",
+          "name": "url",
+          "type": "string",
+          "single": true
         }
       ]
     }
-  ],
-  "frontMatter.framework.id": "astro",
-  "frontMatter.preview.host": "http://localhost:4321"
+  ]
 }
