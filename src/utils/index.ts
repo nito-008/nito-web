@@ -1,4 +1,4 @@
-export function format(date: Date) {
+export function toDateString(date: Date) {
   return date.toLocaleDateString("ja-JP", {
     timeZone: "Asia/Tokyo",
     year: "numeric",

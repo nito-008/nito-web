@@ -1,6 +1,6 @@
 ---
 import { divider, stack } from "../../styled-system/patterns";
-import { format } from "../utils";
+import { toDateString } from "../utils";
 
 interface Props {
   date: Date;
@@ -16,7 +16,7 @@ const history_item = stack({
 ---
 
 <div class:list={["history_item", history_item]}>
-  <time>{format(date)}</time>
+  <time>{toDateString(date)}</time>
   <p><slot /></p>
 </div>
 <div class:list={["history_item_line", divider()]}></div>
