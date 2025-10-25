@@ -1,5 +1,5 @@
 ---
-import { getWorks } from "../utils";
+import { getSlugFromId, getWorks } from "../utils/collections";
 import Section from "../components/Section.astro";
 import WorkItem from "../components/WorkItem.astro";
 import { container } from "../../styled-system/patterns";
@@ -26,7 +26,11 @@ const works = await getWorks();
             <WorkItem
               name={item.data.name}
               image={item.data.icon}
-              href={item.data.url ? item.data.url : `/works/${item.slug}`}
+              href={
+                item.data.url
+                  ? item.data.url
+                  : `/works/${getSlugFromId(item.id)}`
+              }
             >
               {item.data.description}
             </WorkItem>
