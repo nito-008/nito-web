@@ -1,4 +1,131 @@
 ---
 title: openapi-react-queryで型安全にAPIを叩こう
-pubDate: 2024-12-15
+pubDate: 2025-10-25T09:27:52.470Z
+type: blog
 ---
+
+import Contents from "../../components/Contents.astro";
+
+openapi-react-queryを使うとAPIを型安全に（しかも簡単に）叩くことができます。
+
+<Contents headings={getHeadings()}></Contents>
+
+## OpenAPIスキーマから型を動的生成する
+
+[openapi-typescript](https://openapi-ts.dev/ja/introduction)はOpenAPIのスキーマ(json or yaml)をtypescriptの型定義ファイルに変換してくれます。これを使ってAPIの型を自動生成します。
+
+```sh
+npx openapi-typescript ./path/to/my/schema.yaml -o ./path/to/my/schema.d.ts
+```
+
+package.jsonのscriptsに追加しておくと便利です。
+
+```json
+{
+  "scripts": {
+    "gen": "openapi-typescript openapi.json -o ./src/schema.d.ts"
+  }
+}
+```
+
+## openapi-fetchとopenapi-react-queryでスキーマの型からAPIクライアントを作成する
+
+早くも今回の山場です。先ほど生成した型定義ファイルからReact Queryのクライアントを作成します。
+
+```ts
+import createFetchClient from "openapi-fetch";
+import createClient from "openapi-react-query";
+import type { paths } from "../schema";
+
+const fetchClient = createFetchClient<paths>({
+  baseUrl: import.meta.env.VITE_API_BASE_URL, // APIのベースURL (https://api.example.com)
+});
+
+export const $api = createClient(fetchClient);
+```
+
+React QueryのqueryFnに[openapi-fetch](https://openapi-ts.dev/ja/openapi-fetch/)で生成した型安全なfetcherを渡しています。
+
+React Queryはデータフェッチライブラリではなく非同期の状態管理ライブラリなので、キャッシュやローディング、エラーの状態管理のみを管理し、フェッチには関心を持ちません。この辺はSWRなどのデータフェッチライブラリと思想が大きく違いそうです。
+
+[React Queryはデータフェッチライブラリではない。非同期の状態管理ライブラリだ。](https://qiita.com/taisei-13046/items/05cac3a2b4daeced64aa)
+
+SWRに慣れている方は[swr-openapi](https://openapi-ts.dev/swr-openapi/)というのもあるみたいです。（日本語だとなぜか一覧に出てこず悲しい）
+
+## 実際にAPIを叩いてみる
+
+```ts
+const { data: users } = $api.useQuery("get", "/users/{user_id}", {
+  params: {
+    path: { user_id: 0 },
+  },
+  {
+    staleTime: 0,
+  }
+});
+```
+
+第一引数にHTTPメソッド名, 第二引数にパス、第三引数にパラメータ（パスやクエリパラメータ）、第四引数にReact Queryに渡したい引数（staleTimeなど）を渡します。
+一部openapi-react-queryが自動で設定しているため指定できないものもあります（queryKey, queryFn）
+
+例えば、`/users`というエンドポイントがあった場合、これだけでデータを取得できます。
+
+```ts
+const { data: users } = $api.useQuery("get", "/users");
+```
+
+## TIPS
+
+React Queryの使い方は[この記事](https://zenn.dev/taisei_13046/books/133e9995b6aadf/viewer/2ce93a)が分かりやすいです。
+
+### mutationしたときにqueryがすぐに更新されない
+
+`onSuccess`コールバックで[クエリのinvalidationをする](https://tanstack.com/query/v5/docs/framework/react/guides/invalidations-from-mutations)のが簡単です。`queryClient.invalidateQueries()`でクエリをinvalidateするとstaleTimeに関わらず即座にstale状態となり再取得されます。
+
+openapi-react-queryでは`$api.queryOption()`を使って自動設定されたqueryKeyを取得できるようです。
+
+```ts
+import { useQueryClient } from "@tanstack/react-query";
+
+const queryClient = useQueryClient();
+
+const updateUser = $api.useMutation(
+  "post",
+  "/users/{user_id}",
+  {
+    params: {
+      path: { user_id: 0 },
+    },
+  },
+  {
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: $api.queryOptions("get", "/users").queryKey,
+      }),
+  },
+);
+```
+
+もしくは、`setQueryData()`を使って[直接キャッシュを書き換える](https://tanstack.com/query/v5/docs/framework/react/guides/updates-from-mutation-responses)こともできます。
+
+```ts
+const mutation = $api.useMutation(
+  "post",
+  "/users/{user_id}",
+  {
+    params: {
+      path: { user_id: 0 },
+    },
+  },
+  {
+    onSuccess: (data) => {
+      queryClient.setQueryData(
+        $api.queryOptions("get", "/users").queryKey,
+        data,
+      );
+    },
+  },
+);
+```
+
+[Optimistic Updates](https://tanstack.com/query/latest/docs/framework/react/guides/optimistic-updates)という考え方もあります。mutationが成功することを期待してUIを先に更新しておくという考え方です。この場合は`onSuccess`の代わりに`onSettled`を使うと良さそうです。
