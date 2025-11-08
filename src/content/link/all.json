@@ -1,0 +1,52 @@
+[
+  {
+    "name": "GitHub",
+    "icon": {
+      "normal": "/src/assets/links/github-mark.svg",
+      "inverted": "/src/assets/links/github-mark-white.svg"
+    },
+    "id": "nito-008",
+    "link": "https://github.com/nito-008",
+    "color": "#24292F"
+  },
+  {
+    "name": "Qiita",
+    "icon": {
+      "normal": "/src/assets/links/qiita-icon.png",
+      "inverted": "/src/assets/links/qiita-white-icon.png"
+    },
+    "id": "@nito_008",
+    "link": "https://qiita.com/nito_008",
+    "color": "#55C500"
+  },
+  {
+    "name": "X (日常用)",
+    "icon": {
+      "normal": "/src/assets/links/logo-black.png",
+      "inverted": "/src/assets/links/logo-white.png"
+    },
+    "id": "@nito_008",
+    "link": "https://x.com/@nito_008",
+    "color": "#000000"
+  },
+  {
+    "name": "X (作曲用)",
+    "icon": {
+      "normal": "/src/assets/links/logo-black.png",
+      "inverted": "/src/assets/links/logo-white.png"
+    },
+    "id": "@nito_music",
+    "link": "https://x.com/@nito_music",
+    "color": "#000000"
+  },
+  {
+    "name": "YouTube",
+    "icon": {
+      "normal": "/src/assets/links/youtube_social_square_white.png",
+      "inverted": "/src/assets/links/youtube_social_square_red.png"
+    },
+    "id": "@NITO_MUSIC_LAB",
+    "link": "https://www.youtube.com/@NITO_MUSIC_LAB",
+    "color": "#f00"
+  }
+]

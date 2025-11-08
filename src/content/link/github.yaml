@@ -1,7 +1,0 @@
-name: GitHub
-icon:
-  normal: /src/assets/links/github-mark.svg
-  inverted: /src/assets/links/github-mark-white.svg
-id: "@nito-008"
-link: https://github.com/nito-008
-color: "#24292F"

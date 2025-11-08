@@ -1,7 +1,0 @@
-name: YouTube
-icon:
-  normal: /src/assets/links/youtube_social_square_white.png
-  inverted: /src/assets/links/youtube_social_square_red.png
-id: "@NITO_MUSIC_LAB"
-link: https://www.youtube.com/@NITO_MUSIC_LAB
-color: "#f00"
