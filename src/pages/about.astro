@@ -91,9 +91,9 @@ const profile_item = vstack({ gap: "6", alignItems: "stretch" });
     <Section heading="LINKS">
       <ul class={vstack({ gap: "12", alignItems: "stretch", width: "100%" })}>
         {
-          links.map((item) => (
+          links[0].data.map((item) => (
             <li>
-              <LinkItem {...item.data} />
+              <LinkItem {...item} />
             </li>
           ))
         }

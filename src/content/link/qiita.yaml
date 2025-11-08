@@ -1,7 +1,0 @@
-name: Qiita
-icon:
-  normal: /src/assets/links/qiita-icon.png
-  inverted: /src/assets/links/qiita-white-icon.png
-id: "@nito_008"
-link: https://qiita.com/nito_008
-color: "#55C500"
