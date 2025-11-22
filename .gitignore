@@ -29,3 +29,6 @@ styled-system-studio
 
 # ESLint cache
 .eslintcache
+
+# remark link card
+public/remark-link-card

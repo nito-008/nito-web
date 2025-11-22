@@ -59,9 +59,6 @@ export const markdown = cva({
     "& pre": {
       padding: "8",
     },
-    "& code": {
-      fontWeight: "700",
-    },
     "& blockquote": {
       lineBreak: "anywhere",
       color: "bg",
@@ -173,6 +170,10 @@ export const markdown = cva({
     },
     "& > .button_container": {
       textAlign: "center",
+    },
+    "& .expressive-code .copy": {
+      width: "5rem",
+      height: "5rem",
     },
   },
 });
