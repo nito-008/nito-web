@@ -1,0 +1,24 @@
+---
+title: AWS LambdaでOGPを自動生成する
+pubDate: 2025-11-21T05:06:34.967Z
+image: ""
+fmContentType: blog
+---
+
+import Contents from "../../components/Contents.astro";
+
+ブログのOGP生成をAWS Lambdaを使って自動化しました。
+
+<Contents headings={getHeadings()}></Contents>
+
+## Satori+resvgを使ってみる
+
+[Satori](https://github.com/vercel/satori)というJSXをSVGにレンダーするライブラリと、[resvg](https://github.com/linebender/resvg)というSVGをPNGに変換するライブラリ（Rust実装）を組み合わせる方法が主流らしい。Vercelが提供しているOGP生成ライブラリである[@vercel/og](https://vercel.com/docs/og-image-generation)の実装もこうなっている。
+
+```ts
+const svg = await satori(<OgImage title={title} />, {
+      width: 1200,
+      height: 630,
+      fonts: fontData,
+    });
+```
