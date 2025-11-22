@@ -32,7 +32,7 @@ export default defineConfig({
       [
         rlc,
         {
-          cache: true,
+          cache: false,
         },
       ],
     ],
