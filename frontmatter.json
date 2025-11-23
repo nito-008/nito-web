@@ -80,5 +80,13 @@
         }
       ]
     }
+  ],
+  "frontMatter.custom.scripts": [
+    {
+      "id": "generate-og-image",
+      "title": "OGP画像を生成",
+      "script": "./scripts/generate-og-image.ts",
+      "command": "bun"
+    }
   ]
 }
