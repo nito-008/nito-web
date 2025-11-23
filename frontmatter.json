@@ -94,5 +94,13 @@
       "command": "bun"
     }
   ],
-  "frontMatter.sponsors.ai.enabled": false
+  "frontMatter.sponsors.ai.enabled": false,
+  "frontMatter.panel.actions.disabled": ["optimizeSlug", "openDashboard"],
+  "frontMatter.global.modes": [
+    {
+      "id": "minimal",
+      "features": ["panel.metadata", "panel.actions", "panel.recentlyModified"]
+    }
+  ],
+  "frontMatter.global.activeMode": "minimal"
 }
