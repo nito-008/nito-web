@@ -18,6 +18,7 @@
     }
   ],
   "frontMatter.content.supportedFileTypes": ["md", "markdown", "mdx"],
+  "frontMatter.content.defaultFileType": "mdx",
   "frontMatter.taxonomy.contentTypes": [
     {
       "name": "blog",
@@ -42,7 +43,11 @@
           "type": "image",
           "isPreviewImage": true
         }
-      ]
+      ],
+      "template": "[[workspace]]/.frontmatter/templates/blog.mdx",
+      "postScript": "generate-og-image",
+      "filePrefix": "",
+      "fileType": "mdx"
     },
     {
       "name": "work",
@@ -88,5 +93,6 @@
       "script": "./scripts/generate-og-image.ts",
       "command": "bun"
     }
-  ]
+  ],
+  "frontMatter.sponsors.ai.enabled": false
 }
