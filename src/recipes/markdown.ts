@@ -175,5 +175,14 @@ export const markdown = cva({
       width: "5rem",
       height: "5rem",
     },
+    "& :not(.expressive-code) code": {
+      color: "#464b57",
+      background: "#efebe5",
+      paddingBlock: "1",
+      paddingInline: "3",
+      marginInline: "2",
+      fontFamily: "Zen Maru Gothic",
+      borderRadius: "xl",
+    },
   },
 });
