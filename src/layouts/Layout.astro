@@ -13,6 +13,7 @@ import BaseHead, {
 } from "../components/BaseHead.astro";
 
 import { css } from "../../styled-system/css";
+import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 
 export type Props = BaseProps & {
   style?: string;
@@ -25,12 +26,15 @@ const body = css({
   minHeight: "100dvh",
   pos: "relative",
 });
+
+const isProd = import.meta.env.PROD;
 ---
 
 <!doctype html>
 <html lang="ja">
   <head>
     <BaseHead {...head} />
+    {isProd && <GoogleAnalytics />}
     <slot name="head" />
   </head>
   <body class:list={[body, className]} style={style}>
