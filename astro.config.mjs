@@ -4,6 +4,8 @@ import rlc from "remark-link-card";
 
 import expressiveCode from "astro-expressive-code";
 
+import partytown from "@astrojs/partytown";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://nito008.com/",
@@ -26,6 +28,11 @@ export default defineConfig({
       themes: ["github-dark-dimmed"],
     }),
     mdx(),
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      },
+    }),
   ],
   markdown: {
     remarkPlugins: [
